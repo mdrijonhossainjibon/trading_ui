@@ -1,6 +1,5 @@
-import { MainPage } from "./MainPage"
-import TradingScreen  from "./TradingScreen"
+import { MainPage } from "./MainPage";
+import TradingScreen from "./TradingScreen";
+import { LogInScreen } from "./Login";
 
-
-
-export const WEBDESTOP = { MainPage ,TradingScreen }
+export const WEBDESTOP = { MainPage, TradingScreen, LogInScreen };
