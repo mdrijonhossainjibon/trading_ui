@@ -1,0 +1,42 @@
+#message {
+    position: fixed;
+    
+    right: -300px;
+    transform: translateY(-50%);
+    height: 80px;
+    background-color: #ec1010;
+    color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    transition: right 0.5s ease-in-out;
+    z-index: 9999;
+   width: 120px;
+}
+#message.show {
+    right: 50px;
+}.circle {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 4px solid #fff;
+    border-top-color: #000;
+    animation: spin 1s linear infinite;
+  }@keyframes spin {
+    to { transform: rotate(360deg); }
+  } .loading-circle {
+    position: fixed;
+    width: 35px;
+    transform: translate(-50%, -50%);
+    height: 35px;
+    left: 50%;
+    top: 50%;
+    z-index: 9999;
+    backdrop-filter: blur(1900px);
+   display: none;
+  }.loading-circle.show {
+    display: block;
+    animation: fade-in 0.5s ease-in-out forwards;
+}
