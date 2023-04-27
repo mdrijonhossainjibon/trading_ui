@@ -1,5 +1,5 @@
 //import "antd/dist/antd.min.css";
-import { Button, Input, Carousel,notification  } from "antd";
+import { Button, Input, Carousel,notification ,Table  } from "antd";
 import { DownloadOutlined,GlobalOutlined,DownOutlined,SoundOutlined} from '@ant-design/icons'
 import "./LoginScreen.css";
 import Slider from "react-slick";
@@ -9,6 +9,46 @@ const Manuarr = ['Buy Credit Card','MARKET','Trading','Earn','Airdrop'];
 
 import { Components } from '../../components/'
 
+
+const dataSource = [
+  {
+    key: '1',
+    market: 'Binance',
+    coinLogo: 'https://www.binance.com/favicon.ico',
+    pair: 'BTC/USDT',
+  },
+  {
+    key: '2',
+    market: 'Coinbase',
+    coinLogo: 'https://www.coinbase.com/favicon.ico',
+    pair: 'ETH/USD',
+  },
+  {
+    key: '3',
+    market: 'Kraken',
+    coinLogo: 'https://www.kraken.com/favicon.ico',
+    pair: 'LTC/EUR',
+  },
+];
+
+const columns = [
+  {
+    title: 'Market',
+    dataIndex: 'market',
+    key: 'market',
+  },
+  {
+    title: 'Coins Logo',
+    dataIndex: 'coinLogo',
+    key: 'coinLogo',
+    render: (logo) => <img src={logo} alt="coin logo" />,
+  },
+  {
+    title: 'Pair',
+    dataIndex: 'pair',
+    key: 'pair',
+  },
+];
 
 export const LogInScreen = () => {
  
@@ -59,6 +99,8 @@ export const LogInScreen = () => {
       <div className="banner-not">
           <div className="news">  <SoundOutlined />  <div style={ { marginLeft : '15px',fontSize : '14px' } }>TEXTTT</div> </div>
       </div>
+       
+      <Table dataSource={dataSource} columns={columns} />
         </div>
         </>
     )
