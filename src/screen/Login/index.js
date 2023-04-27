@@ -1,11 +1,17 @@
 //import "antd/dist/antd.min.css";
-import { Button, Input } from "antd";
-import { DownloadOutlined,GlobalOutlined,DownOutlined} from '@ant-design/icons'
+import { Button, Input, Carousel,notification  } from "antd";
+import { DownloadOutlined,GlobalOutlined,DownOutlined,SoundOutlined} from '@ant-design/icons'
 import "./LoginScreen.css";
-const Manuarr = ['Buy Credit Card','MARKET','Trading','Earn','Airdrop']
-export const LogInScreen = () => {
-   
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+const Manuarr = ['Buy Credit Card','MARKET','Trading','Earn','Airdrop'];
 
+import { Components } from '../../components/'
+
+
+export const LogInScreen = () => {
+ 
 
     return(
         <>
@@ -32,12 +38,27 @@ export const LogInScreen = () => {
         </div>
         
         <div className="home-page">
-           <div className="ex-name"> Hotcoin Global </div>
-           <div className="ex-name1">The World's Leading Blockchain Digital Asset Trading Platform</div>
-           <div className="ex-name2"> Hassle-free Trading among BTC, ETH, USDT and Other Cryptos</div>
+            <div  className="loading-page-title">
+                <div className="ex-name"> DEMO Global </div>
+                 <div className="ex-name1">The World's Leading Blockchain Digital Asset Trading Platform</div>
+                 <div className="ex-name2"> Hassle-free Trading among BTC, ETH, USDT and Other Cryptos</div>
+            </div>
+           
+           
+          
+           
        
+       <div className="loading-page-rg">
+           <Button className="login-btn" name="Login" title="Login">Login</Button>
+       <Button className="rg-btn" name="Login" title="Register">Register</Button>
+       </div>
        
+      
+    <Components.WEBSlider/>
        
+      <div className="banner-not">
+          <div className="news">  <SoundOutlined />  <div style={ { marginLeft : '15px',fontSize : '14px' } }>TEXTTT</div> </div>
+      </div>
         </div>
         </>
     )
