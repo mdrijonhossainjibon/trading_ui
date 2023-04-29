@@ -6,8 +6,8 @@
   width: 100%;
   height: 58px;
   position: relative;
-  background: goldenrod;
-  color:  #fff;
+  background: wheat;
+  color:  black;
 }
 .header-logo-div {
   display: table-cell;

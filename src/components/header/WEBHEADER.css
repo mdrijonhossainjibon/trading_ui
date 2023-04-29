@@ -1,0 +1,24 @@
+.qrcode-dawan {
+  position: absolute;
+  top: 50px;
+  left: 900px;
+  background: #f7f5f5;
+  display: flex;
+  width: 350px;
+  /* line-height: 1px; */
+  align-items: center;
+  margin-top: 10px;
+  border-radius: 9px;
+}
+.app-cont {
+  position: absolute;
+  margin-top: 99px;
+  margin-left: 135px;
+  color: #b79191;
+}
+.notes-andt {
+  padding-left: 15px;
+  line-height: 20px;
+  font-style: oblique;
+  color: #618138;
+}
