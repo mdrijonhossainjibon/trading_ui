@@ -22,8 +22,13 @@ export const WEBHEADER = () => {
   const [Language, setLanguage] = useState("en");
   const { t, i18n } = useTranslation();
   function handleLanguageChange(lang) {
-    setLanguage(lang);
-    i18n.changeLanguage(lang);
+    if (Language === "en") {
+      setLanguage(lang);
+      i18n.changeLanguage(lang);
+    }else if(Language === 'bn'){
+      setLanguage('en')
+      i18n.changeLanguage('en')
+    }
   }
   return (
     <Suspense
