@@ -2,7 +2,7 @@ import { Table, Button } from "antd";
 import numeral from "numeral";
 import { useNavigate } from "react-router-dom";
 
-export const CustomTable = (prams) => {
+export const CustomTable = (params) => {
   const navigate = useNavigate();
 
   const columns = [
@@ -49,20 +49,25 @@ export const CustomTable = (prams) => {
     {
       dataIndex: "Action",
       key: "Action",
-      render: (pair) => {
+      render: (text, record) => {
+        const tradingPair = record.tradingPair.split("/");
         return (
           <>
             <Button
               style={{ marginRight: "10px", width: "90px" }}
               className="btn-1-trade"
-              onClick={() => navigate("/trade/symbol=AA")}
+              onClick={() =>
+                navigate(`/trade/symbol=${tradingPair[0]}_${tradingPair[1]}`)
+              }
             >
               More
             </Button>
             <Button
               className="btn-2-trade"
               style={{ marginLeft: "10px" }}
-              onClick={() => navigate("/trade/symbol=AA")}
+              onClick={() =>
+                navigate(`/trade/symbol=${tradingPair[0]}_${tradingPair[1]}`)
+              }
             >
               Trade
             </Button>
@@ -75,9 +80,9 @@ export const CustomTable = (prams) => {
   return (
     <>
       <Table
-        dataSource={prams.Data}
+        dataSource={params.Data}
         columns={columns}
-        pagination={prams.pagination}
+        pagination={params.pagination}
       />
     </>
   );
