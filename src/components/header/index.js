@@ -14,10 +14,12 @@ import {
   UserCircleOutline,
   MessageOutline,
   RightOutline,
+  BellOutline,
+  UserOutline,
 } from "antd-mobile-icons";
 
 export const WEBHEADER = () => {
-  const [isLogin, setLogin] = useState(false);
+  const [isLogin, setLogin] = useState(true);
   const [qrshow, setqr] = useState(false);
   const [Language, setLanguage] = useState("en");
   const { t, i18n } = useTranslation();
@@ -25,9 +27,9 @@ export const WEBHEADER = () => {
     if (Language === "en") {
       setLanguage(lang);
       i18n.changeLanguage(lang);
-    }else if(Language === 'bn'){
-      setLanguage('en')
-      i18n.changeLanguage('en')
+    } else if (Language === "bn") {
+      setLanguage("en");
+      i18n.changeLanguage("en");
     }
   }
   return (
@@ -46,12 +48,12 @@ export const WEBHEADER = () => {
           <li>
             {t("buy-crypto")} <DownOutlined />
           </li>
-          <li>MARKET </li>
+          <li>{t("market")}</li>
           <li>
-            Trading <DownOutlined />
+            {t("Trading")} <DownOutlined />
           </li>
           <li>
-            Earn <DownOutlined />
+            {t("Earn")} <DownOutlined />
           </li>
         </ul>
         {qrshow ? (
@@ -71,7 +73,23 @@ export const WEBHEADER = () => {
           </div>
         ) : null}
         <div className="right-login--reg">
-          {isLogin ? null : (
+          {isLogin ? (
+            <>
+              <div> Blalance </div>
+              <div>Order</div>
+              <UserOutline />
+              <BellOutline />
+              <DownlandOutline
+                onMouseEnter={() => setqr(true)}
+                onMouseLeave={() => setqr(false)}
+                className="d-icons"
+              />
+              <GlobalOutlined
+                onClick={() => handleLanguageChange("bn")}
+                className="g-icons"
+              />
+            </>
+          ) : (
             <>
               <div className="Login">{t("L")}</div>
               <div className="Register">{t("R")}</div>
