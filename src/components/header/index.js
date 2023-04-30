@@ -9,6 +9,7 @@ import {
   SoundOutlined,
 } from "@ant-design/icons";
 import { QRCode, Space, Card } from "antd";
+import { useNavigate } from "react-router-dom";
 import {
   DownlandOutline,
   UserCircleOutline,
@@ -23,6 +24,7 @@ export const WEBHEADER = () => {
   const [qrshow, setqr] = useState(false);
   const [Language, setLanguage] = useState("en");
   const { t, i18n } = useTranslation();
+  const navigate = useNavigate();
   function handleLanguageChange(lang) {
     if (Language === "en") {
       setLanguage(lang);
@@ -41,7 +43,7 @@ export const WEBHEADER = () => {
       }
     >
       <div className="header">
-        <div className="header-logo-div">
+        <div className="header-logo-div" onClick={() => navigate("/")}>
           <img src="https://www.bybit.com/common-static/fhs/bybit-home-new/logo-dark.svg" />
         </div>
         <ul className="header-ul">

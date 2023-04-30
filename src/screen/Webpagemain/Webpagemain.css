@@ -1,0 +1,35 @@
+.icons-table {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  white-space: nowrap;
+  width: 100px;
+  margin-right: 46px;
+}
+.pair {
+  position: absolute;
+  left: 2px;
+  top: 8px;
+}
+.name-coin {
+  position: absolute;
+  left: 30%;
+  font-size: 12px;
+  top: 24px;
+  color: #131414;
+}
+.token-state-table {
+  position: absolute;
+  top: -2px;
+  left: 40%;
+}
+.btn-1-trade {
+  width: 150px;
+  position: absolute;
+  color: #181515;
+  background: #c9c6ff;
+  font-size: 13px;
+}
+.btn-2-trade {
+  left: 90px;
+}

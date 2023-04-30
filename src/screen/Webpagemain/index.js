@@ -1,34 +1,58 @@
-import { Button } from "antd";
+import { Button, Tabs } from "antd";
 import { SoundOutlined } from "@ant-design/icons";
 import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Toast } from "antd-mobile";
-import { Table } from "antd";
-import { BTC } from "react-cryptocoins";
-import numeral from "numeral";
+import {
+  LineChartOutlined,
+  FireOutlined,
+  FallOutlined,
+  RiseOutlined,
+  PlusOutlined,
+} from "@ant-design/icons";
+
+import { Staricons } from "../../assets/images/trading/start";
+import { Components } from "../../components";
+
+import "./Webpagemain.css";
+
+const { TabPane } = Tabs;
 export const Webpagemain = () => {
   const { t } = useTranslation();
   const [Login, setLogin] = useState(true);
+  const [activeTab, setActiveTab] = useState("1");
   const navigate = useNavigate();
+
+  const handleTabChange = (key) => {
+    setActiveTab(key);
+  };
+
   //sessionStorage.setItem("email", token);
   //sessionStorage.setItem("password", token);
 
-  const Com = () => {
+  const Com = (prams) => {
     return (
       <>
-        <div>
+        <div
+          className="icons-table"
+          onClick={() => navigate(`/trade/symbol=${prams.pair}`)}
+        >
           <div>
-            <img src={"../../assets/images/trading/star.svg"} />
+            <Staricons />
           </div>
           <div>
             <img
               style={{ height: "25px" }}
-              src={require("../../../node_modules/cryptocurrency-icons/128/color/sol.png")}
+              src={require(`../../../node_modules/cryptocurrency-icons/128/color/${prams.pair
+                .split("/")[0]
+                .toLocaleLowerCase()}.png`)}
             />
           </div>
-          <div>USD/BTC</div>
-          <div>United States</div>
+          <div className="token-state-table">
+            <div className="pair">{prams.pair}</div>
+            <div className="name-coin">{prams.name_coin}</div>
+          </div>
         </div>
       </>
     );
@@ -37,7 +61,7 @@ export const Webpagemain = () => {
   const data = [
     {
       key: "1",
-      icon: <Com />,
+      icon: <Com pair="BTC/USD" name_coin="Bitcoin" />,
       name: "Bitcoin",
       tradingPair: "BTC/USD",
       price: 54678.5,
@@ -46,63 +70,140 @@ export const Webpagemain = () => {
     },
     {
       key: "2",
-      icon: <Com />,
+      icon: <Com pair="ETH/USD" name_coin="Ethereum" />,
       name: "Ethereum",
       tradingPair: "ETH/USD",
       price: 3425.12,
       change: -0.0091,
       volume: 235678,
     },
+    {
+      key: "3",
+      icon: <Com pair="TRX/USD" name_coin="Ethereum" />,
+      name: "Suriname Copa",
+      tradingPair: "SDR/USD",
+      price: 3425.12,
+      change: -0.0091,
+      volume: 235678,
+    },
+    {
+      key: "4",
+      icon: <Com pair="SOL/USD" name_coin="Ethereum" />,
+      name: "Suriname Copa",
+      tradingPair: "SDR/USD",
+      price: 3425.12,
+      change: -0.0091,
+      volume: 235678,
+    },
+    {
+      key: "5",
+      icon: <Com pair="LTC/USD" name_coin="Ethereum" />,
+      name: "Suriname Copa",
+      tradingPair: "SDR/USD",
+      price: 3425.12,
+      change: -0.0091,
+      volume: 235678,
+    },
+    {
+      key: "6",
+      icon: <Com pair="BCH/USD" name_coin="Ethereum" />,
+      name: "0000",
+      tradingPair: "SDR/USD",
+      price: 3425.12,
+      change: -0.0091,
+      volume: 235678,
+    },
+    {
+      key: "7",
+      icon: <Com pair="XRP/USD" name_coin="Ethereum" />,
+      name: "Suriname Copa",
+      tradingPair: "SDR/USD",
+      price: 3425.12,
+      change: -0.0091,
+      volume: 235678,
+    },
+    {
+      key: "8",
+      icon: <Com pair="BNB/USD" name_coin="Ethereum" />,
+      name: "Suriname Copa",
+      tradingPair: "SDR/USD",
+      price: 3425.12,
+      change: -0.0091,
+      volume: 235678,
+    },
+    {
+      key: "1",
+      icon: <Com pair="BTC/USD" name_coin="Bitcoin" />,
+      name: "Bitcoin",
+      tradingPair: "BTC/USD",
+      price: 54678.5,
+      change: 0.0142,
+      volume: 784325,
+    },
+    {
+      key: "2",
+      icon: <Com pair="ETH/USD" name_coin="Ethereum" />,
+      name: "Ethereum",
+      tradingPair: "ETH/USD",
+      price: 3425.12,
+      change: -0.0091,
+      volume: 235678,
+    },
+    {
+      key: "3",
+      icon: <Com pair="TRX/USD" name_coin="Ethereum" />,
+      name: "Suriname Copa",
+      tradingPair: "SDR/USD",
+      price: 3425.12,
+      change: -0.0091,
+      volume: 235678,
+    },
+    {
+      key: "4",
+      icon: <Com pair="SOL/USD" name_coin="Ethereum" />,
+      name: "Suriname Copa",
+      tradingPair: "SDR/USD",
+      price: 3425.12,
+      change: -0.0091,
+      volume: 235678,
+    },
+    {
+      key: "5",
+      icon: <Com pair="LTC/USD" name_coin="Ethereum" />,
+      name: "Suriname Copa",
+      tradingPair: "SDR/USD",
+      price: 3425.12,
+      change: -0.0091,
+      volume: 235678,
+    },
+    {
+      key: "6",
+      icon: <Com pair="BCH/USD" name_coin="Ethereum" />,
+      name: "0000",
+      tradingPair: "SDR/USD",
+      price: 3425.12,
+      change: -0.0091,
+      volume: 235678,
+    },
+    {
+      key: "7",
+      icon: <Com pair="XRP/USD" name_coin="Ethereum" />,
+      name: "Suriname Copa",
+      tradingPair: "SDR/USD",
+      price: 3425.12,
+      change: -0.0091,
+      volume: 235678,
+    },
+    {
+      key: "8",
+      icon: <Com pair="BNB/USD" name_coin="Ethereum" />,
+      name: "Suriname Copa",
+      tradingPair: "SDR/USD",
+      price: 3425.12,
+      change: -0.0091,
+      volume: 235678,
+    },
     // add more data objects here
-  ];
-
-  const columns = [
-    {
-      title: "Trading Pair",
-      dataIndex: "icon",
-      key: "icon",
-    },
-    {
-      title: "Price",
-      dataIndex: "name",
-      key: "name",
-    },
-    {
-      title: "Change",
-      dataIndex: "tradingPair",
-      key: "tradingPair",
-    },
-    {
-      title: "24h High",
-      dataIndex: "price",
-      key: "price",
-      render: (price) => numeral(price).format("$0,0.00"),
-    },
-    {
-      title: "24h Low",
-      dataIndex: "change",
-      key: "change",
-      render: (change) => {
-        const formattedChange = numeral(change).format("0.00%");
-        return (
-          <span style={{ color: change >= 0 ? "green" : "red" }}>
-            {formattedChange}
-          </span>
-        );
-      },
-    },
-    {
-      title: "Volume",
-      dataIndex: "volume",
-      key: "volume",
-      render: (volume) => numeral(volume).format("0,0"),
-    },
-    {
-      title: "Action",
-      dataIndex: "Action",
-      key: "Action",
-      render: (volume) => numeral(volume).format("0,0"),
-    },
   ];
 
   return (
@@ -140,15 +241,26 @@ export const Webpagemain = () => {
             {Login ? t("Trading") : t("R")}
           </Button>
         </div>
-        Components.WEBSlider
+        <Components.WEBSlider />
         <div className="banner-not">
           <div className="news">
             <SoundOutlined />
             <div style={{ marginLeft: "15px", fontSize: "14px" }}>TEXTTT</div>
           </div>
         </div>
-        Components.MARKETTABLE
-        <Table dataSource={data} columns={columns} />
+        <Components.MARKET_TABLE_Tabs
+          Trading={
+            <Components.CustomTable
+              Data={data.slice(0, 8)}
+              pagination={false}
+            />
+          }
+          Hot={<Components.CustomTable Data={[]} pagination={false} />}
+          Loser={<Components.CustomTable Data={[]} pagination={false} />}
+          HourChange={<Components.CustomTable Data={[]} pagination={false} />}
+          new={<Components.CustomTable Data={[]} pagination={false} />}
+        />
+        Components.WEBSlider
       </div>
     </>
   );
