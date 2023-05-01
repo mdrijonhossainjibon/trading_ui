@@ -1,9 +1,11 @@
 import { Table, Button } from "antd";
 import numeral from "numeral";
 import { useNavigate } from "react-router-dom";
-
+import { useTranslation } from "react-i18next";
+import { Containers } from "../../containers";
 export const CustomTable = (params) => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const columns = [
     {
@@ -13,22 +15,22 @@ export const CustomTable = (params) => {
     },
     {
       title: "Price",
-      dataIndex: "name",
-      key: "name",
+      dataIndex: "price",
+      key: "price",
+      render: (price) => {
+        return (
+          <>
+            <div>
+              <div>{price}</div>
+              <div>{numeral(price).format("$0,0.00")}</div>
+            </div>
+          </>
+        );
+      },
+      sorter: (a, b) => a.price - b.price,
     },
     {
       title: "Change",
-      dataIndex: "tradingPair",
-      key: "tradingPair",
-    },
-    {
-      title: "24h High",
-      dataIndex: "price",
-      key: "price",
-      render: (price) => numeral(price).format("$0,0.00"),
-    },
-    {
-      title: "24h Low",
       dataIndex: "change",
       key: "change",
       render: (change) => {
@@ -39,12 +41,26 @@ export const CustomTable = (params) => {
           </span>
         );
       },
+      sorter: (a, b) => a.change - b.change,
+    },
+    {
+      title: "24h High",
+      dataIndex: "high",
+      key: "high",
+      render: (high) => numeral(high).format("$0,0.00"),
+    },
+    {
+      title: "24h Low",
+      dataIndex: "low",
+      key: "low",
+      render: (low) => numeral(low).format("$0,0.00"),
     },
     {
       title: "Volume",
       dataIndex: "volume",
       key: "volume",
-      render: (volume) => numeral(volume).format("0,0"),
+      render: (volume) => Containers.MillifyNumber(volume),
+      sorter: (a, b) => a.volume - b.volume,
     },
     {
       dataIndex: "Action",
@@ -60,7 +76,7 @@ export const CustomTable = (params) => {
                 navigate(`/trade/symbol=${tradingPair[0]}_${tradingPair[1]}`)
               }
             >
-              More
+              {t("details")}
             </Button>
             <Button
               className="btn-2-trade"
@@ -69,7 +85,7 @@ export const CustomTable = (params) => {
                 navigate(`/trade/symbol=${tradingPair[0]}_${tradingPair[1]}`)
               }
             >
-              Trade
+              {t("Trading")}
             </Button>
           </>
         );
@@ -83,6 +99,7 @@ export const CustomTable = (params) => {
         dataSource={params.Data}
         columns={columns}
         pagination={params.pagination}
+        showSorterTooltip={false}
       />
     </>
   );

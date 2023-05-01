@@ -6,6 +6,7 @@ import { WEBHEADER } from "./header";
 import { WEBSlider } from "./Slider";
 import { CustomTable } from "./custom_table";
 import { MARKET_TABLE_Tabs } from "./MARKET_TABLE_Tabs";
+import { Crypto_Icons } from "./Crypto_Icons";
 export const Components = {
   Spotorderbook,
   CandelChart,
@@ -15,4 +16,5 @@ export const Components = {
   WEBSlider,
   CustomTable,
   MARKET_TABLE_Tabs,
+  Crypto_Icons,
 };
