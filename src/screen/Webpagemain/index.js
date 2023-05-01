@@ -6,47 +6,34 @@ import { useNavigate } from "react-router-dom";
 import { Toast } from "antd-mobile";
 
 import { Components } from "../../components";
-
+import { Containers } from "../../containers";
 import "./Webpagemain.css";
 
 export const Webpagemain = () => {
   const { t } = useTranslation();
   const [Login, setLogin] = useState(true);
   const [activeTab, setActiveTab] = useState("1");
-  const [TradingListData, setTradingListData] = useState([]);
+
+  const [marketData, setMarketData] = useState([]);
+
   const navigate = useNavigate();
 
-  const handleTabChange = (key) => {
-    setActiveTab(key);
-  };
-
-  useEffect(async () => {
-    const datas = await fetch(
-      "https://raw.githubusercontent.com/mdrijonhossainjibon/trading_ui/main/public/data/market.json"
-    );
-    const TradingData = await datas.json();
-    const setTradingListDatas = [];
-    TradingData.map((data, i) => {
-      setTradingListDatas.push({
-        key: i,
-        icon: (
-          <Components.Crypto_Icons
-            pair={data.Market}
-            name_coin={data.token_Name}
-          />
-        ),
-        name: "0.00001",
-        tradingPair: "BTC/USD",
-        price: 54678.5,
-        change: 0.0142,
-        volume: 784325,
-      });
-    });
-    setTradingListData(setTradingListDatas);
+  useEffect(() => {
+    const fetchMarketData = async () => {
+      try {
+        const response = await fetch(
+          "https://raw.githubusercontent.com/mdrijonhossainjibon/trading_ui/main/public/data/market.json"
+        );
+        const data = await response.json();
+        setMarketData(data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchMarketData();
   }, []);
 
-  //sessionStorage.setItem("email", token);
-  //sessionStorage.setItem("password", token);
+  const topPrice = Math.max(...marketData.map((obj) => obj.Price));
 
   return (
     <>
@@ -92,12 +79,35 @@ export const Webpagemain = () => {
         </div>
         <Components.MARKET_TABLE_Tabs
           Trading={
-            <Components.CustomTable Data={TradingListData} pagination={false} />
+            <Components.CustomTable
+              Data={Containers.TradingListData(marketData)}
+              pagination={false}
+            />
           }
-          Hot={<Components.CustomTable Data={[]} pagination={false} />}
-          Loser={<Components.CustomTable Data={[]} pagination={false} />}
-          HourChange={<Components.CustomTable Data={[]} pagination={false} />}
-          new={<Components.CustomTable Data={[]} pagination={false} />}
+          Hot={
+            <Components.CustomTable
+              Data={Containers.TradingListData(marketData)}
+              pagination={false}
+            />
+          }
+          Loser={
+            <Components.CustomTable
+              Data={Containers.TradingListData(marketData)}
+              pagination={false}
+            />
+          }
+          HourChange={
+            <Components.CustomTable
+              Data={Containers.TradingListData(marketData)}
+              pagination={false}
+            />
+          }
+          new={
+            <Components.CustomTable
+              Data={Containers.TradingListData(marketData)}
+              pagination={false}
+            />
+          }
         />
         Components.WEBSlider
       </div>
