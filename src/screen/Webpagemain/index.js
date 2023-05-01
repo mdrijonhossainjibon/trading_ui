@@ -13,90 +13,40 @@ export const Webpagemain = () => {
   const { t } = useTranslation();
   const [Login, setLogin] = useState(true);
   const [activeTab, setActiveTab] = useState("1");
+  const [TradingListData, setTradingListData] = useState([]);
   const navigate = useNavigate();
 
   const handleTabChange = (key) => {
     setActiveTab(key);
   };
 
+  useEffect(async () => {
+    const datas = await fetch(
+      "https://raw.githubusercontent.com/mdrijonhossainjibon/trading_ui/main/public/data/market.json"
+    );
+    const TradingData = await datas.json();
+    const setTradingListDatas = [];
+    TradingData.map((data, i) => {
+      setTradingListDatas.push({
+        key: i,
+        icon: (
+          <Components.Crypto_Icons
+            pair={data.Market}
+            name_coin={data.token_Name}
+          />
+        ),
+        name: "0.00001",
+        tradingPair: "BTC/USD",
+        price: 54678.5,
+        change: 0.0142,
+        volume: 784325,
+      });
+    });
+    setTradingListData(setTradingListDatas);
+  }, []);
+
   //sessionStorage.setItem("email", token);
   //sessionStorage.setItem("password", token);
-
-  const data = [
-    {
-      key: "1",
-      icon: <Components.Crypto_Icons pair="BTC/USD" name_coin="Bitcoin" />,
-      name: "0.00001",
-      tradingPair: "BTC/USD",
-      price: 54678.5,
-      change: 0.0142,
-      volume: 784325,
-    },
-    {
-      key: "2",
-      icon: <Components.Crypto_Icons pair="ETH/USD" name_coin="Ethereum" />,
-      name: "Ethereum",
-      tradingPair: "ETH/USD",
-      price: 3425.12,
-      change: -0.0091,
-      volume: 235678,
-    },
-    {
-      key: "3",
-      icon: <Components.Crypto_Icons pair="TRX/USD" name_coin="Ethereum" />,
-      name: "Suriname Copa",
-      tradingPair: "SDR/USD",
-      price: 3425.12,
-      change: -0.0091,
-      volume: 235678,
-    },
-    {
-      key: "4",
-      icon: <Components.Crypto_Icons pair="SOL/USD" name_coin="Ethereum" />,
-      name: "Suriname Copa",
-      tradingPair: "SDR/USD",
-      price: 3425.12,
-      change: -0.0091,
-      volume: 235678,
-    },
-    {
-      key: "5",
-      icon: <Components.Crypto_Icons pair="LTC/USD" name_coin="Ethereum" />,
-      name: "Suriname Copa",
-      tradingPair: "SDR/USD",
-      price: 3425.12,
-      change: -0.0091,
-      volume: 235678,
-    },
-    {
-      key: "6",
-      icon: <Components.Crypto_Icons pair="BCH/USD" name_coin="Ethereum" />,
-      name: "0000",
-      tradingPair: "SDR/USD",
-      price: 3425.12,
-      change: -0.0091,
-      volume: 235678,
-    },
-    {
-      key: "7",
-      icon: <Components.Crypto_Icons pair="XRP/USD" name_coin="Ethereum" />,
-      name: "Suriname Copa",
-      tradingPair: "SDR/USD",
-      price: 3425.12,
-      change: -0.0091,
-      volume: 235678,
-    },
-    {
-      key: "8",
-      icon: <Components.Crypto_Icons pair="BNB/USD" name_coin="Ethereum" />,
-      name: "Suriname Copa",
-      tradingPair: "SDR/USD",
-      price: 3425.12,
-      change: -0.0091,
-      volume: 235678,
-    },
-    // add more data objects here
-  ];
 
   return (
     <>
@@ -141,7 +91,9 @@ export const Webpagemain = () => {
           </div>
         </div>
         <Components.MARKET_TABLE_Tabs
-          Trading={<Components.CustomTable Data={data} pagination={false} />}
+          Trading={
+            <Components.CustomTable Data={TradingListData} pagination={false} />
+          }
           Hot={<Components.CustomTable Data={[]} pagination={false} />}
           Loser={<Components.CustomTable Data={[]} pagination={false} />}
           HourChange={<Components.CustomTable Data={[]} pagination={false} />}
