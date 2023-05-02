@@ -33,3 +33,8 @@
 .btn-2-trade {
   left: 90px;
 }
+#root
+  > div.home-page
+  > div.ant-tabs.ant-tabs-top.css-dev-only-do-not-override-1e3x2xa {
+  margin-left: 15px;
+}
