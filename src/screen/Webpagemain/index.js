@@ -1,4 +1,4 @@
-import { Button, Tabs } from "antd";
+import { Button } from "antd";
 import { SoundOutlined } from "@ant-design/icons";
 import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";

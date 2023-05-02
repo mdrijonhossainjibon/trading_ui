@@ -251,3 +251,10 @@ body {
   > div.ant-tabs-nav-wrap {
   top: -25px;
 }
+.signup-form-button {
+  margin-left: 40%;
+}
+.Spin-loading {
+  position: absolute;
+  top: 60%;
+}

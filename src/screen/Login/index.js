@@ -1,10 +1,10 @@
 import "./LoginScreen.css";
 import Slider from "react-slick";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Components } from "../../components/";
 import { useTranslation } from "react-i18next";
-import { Card, Tabs, Form, Input, Button, Checkbox } from "antd";
+import { Card, Tabs, Form, Input, Button, Checkbox, Popover, Spin } from "antd";
 import {
   UserOutlined,
   LockOutlined,
@@ -12,10 +12,14 @@ import {
   ShareAltOutlined,
 } from "@ant-design/icons";
 const { TabPane } = Tabs;
+
 export const LogInScreen = () => {
   const { t } = useTranslation();
   const [activeTabKey, setActiveTabKey] = useState("1");
   const [FromH, setFromH] = useState("50%");
+  const [otp, setOTP] = useState(["", "", "", "", "", ""]);
+  const [isVisible, setIsVisible] = useState(false);
+
   const handleTabChange = (key) => {
     setActiveTabKey(key);
     if (key === "1") {
@@ -29,6 +33,61 @@ export const LogInScreen = () => {
   const onFinish = (values) => {
     console.log("Received values of form: ", values);
   };
+
+  const inputRefs = useRef([]);
+
+  const handleOTPChange = (e, index) => {
+    const { value } = e.target;
+    if (!isNaN(value) && value.length <= 1) {
+      const updatedOTP = [...otp];
+      updatedOTP[index] = value;
+      setOTP(updatedOTP);
+      if (value && index < inputRefs.current.length - 1) {
+        inputRefs.current[index + 1].focus();
+      }
+    }
+  };
+
+  const handleKeyDown = (e, index) => {
+    if (e.key === "Enter") {
+      handleVerifyOTP();
+    } else if (e.key === "Tab") {
+      e.preventDefault();
+      inputRefs.current[index + 1].focus();
+    }
+  };
+  const handleVerifyOTP = () => {
+    // Logic to verify OTP
+    // If OTP is valid, perform necessary actions
+    setIsVisible(false);
+  };
+
+  const handleResendOTP = () => {
+    // Logic to resend OTP
+  };
+
+  const content = (
+    <div
+      style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+    >
+      <div style={{ display: "flex", marginBottom: "16px" }}>
+        {otp.map((value, index) => (
+          <Input
+            key={index}
+            value={value}
+            onChange={(e) => handleOTPChange(e, index)}
+            maxLength={1}
+            style={{ width: "32px", marginRight: "8px" }}
+            onKeyDown={(e) => handleKeyDown(e, index)}
+            ref={(el) => inputRefs.current.push(el)}
+          />
+        ))}
+      </div>
+      <Button onClick={handleVerifyOTP}>Verify</Button>
+      <Button onClick={handleResendOTP}>Resend OTP</Button>
+    </div>
+  );
+
   return (
     <>
       <div
@@ -216,6 +275,7 @@ export const LogInScreen = () => {
             </TabPane>
           </Tabs>
         </Card>
+        <div className="Spin-loading"><Spin /></div>
       </div>
     </>
   );
