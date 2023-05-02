@@ -1,6 +1,6 @@
-import { useState, Suspense, lazy } from "react";
+import { useState, Suspense } from "react";
 import { useTranslation } from "react-i18next";
-import { Spin } from "antd";
+import { Spin, Select } from "antd";
 import "./WEBHEADER.css";
 import {
   DownloadOutlined,
@@ -19,6 +19,22 @@ import {
   UserOutline,
 } from "antd-mobile-icons";
 
+const BangladeshOutlined = () => {
+  return (
+    <svg viewBox="0 0 16 16">
+      <path fill="#006A4E" d="M0 0h16v16H0z" />
+      <path fill="#F42A41" d="M0 0h16v11H0z" />
+      <path fill="#FFD500" d="M0 0h16v5H0z" />
+    </svg>
+  );
+};
+
+const { Option } = Select;
+const languageOptions = [
+  { value: "en", label: "English", flag: "FlagOutlined" },
+  { value: "bn", label: "বাংলা", flag: "BangladeshOutlined" },
+  // Add more language options as needed
+];
 export const WEBHEADER = () => {
   const [isLogin, setLogin] = useState(true);
   const [qrshow, setqr] = useState(false);
@@ -26,14 +42,10 @@ export const WEBHEADER = () => {
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
   function handleLanguageChange(lang) {
-    if (Language === "en") {
-      setLanguage(lang);
-      i18n.changeLanguage(lang);
-    } else if (Language === "bn") {
-      setLanguage("en");
-      i18n.changeLanguage("en");
-    }
+    setLanguage(lang);
+    i18n.changeLanguage(lang);
   }
+  console.log(localStorage.getItem(''))
   return (
     <Suspense
       children={
@@ -75,39 +87,51 @@ export const WEBHEADER = () => {
           </div>
         ) : null}
         <div className="right-login--reg">
-          {isLogin ? (
-            <>
-              <div> Blalance </div>
-              <div>Order</div>
-              <UserOutline />
-              <BellOutline />
-              <DownlandOutline
-                onMouseEnter={() => setqr(true)}
-                onMouseLeave={() => setqr(false)}
-                className="d-icons"
-              />
-              <GlobalOutlined
-                onClick={() => handleLanguageChange("bn")}
-                className="g-icons"
-              />
-            </>
-          ) : (
-            <>
-              <div className="Login">{t("L")}</div>
-              <div className="Register">{t("R")}</div>
-              <DownlandOutline
-                onMouseEnter={() => setqr(true)}
-                onMouseLeave={() => setqr(false)}
-                className="d-icons"
-              />
-              <GlobalOutlined
-                onClick={() => handleLanguageChange("bn")}
-                className="g-icons"
-              />
-            </>
-          )}
+          <div className="header-true-login-options">
+            {isLogin ? (
+              <>
+                <div className="all-text"> {t("Blalance")} </div>
+                <div className="all-text">{t("Order")}</div>
+                <UserOutline className="all-text" />
+                <BellOutline className="all-text" />
+              </>
+            ) : (
+              <>
+                <div className="Login">{t("L")}</div>
+                <div className="Register">{t("R")}</div>
+                <BellOutline className="all-text" />
+              </>
+            )}
+
+            <DownlandOutline
+              className="all-text"
+              onMouseEnter={() => setqr(true)}
+              onMouseLeave={() => setqr(false)}
+            />
+            <Select
+              className="all-text"
+              value={Language}
+              onChange={handleLanguageChange}
+              suffixIcon={<GlobalOutlined className="all-text" />}
+              size="small"
+              bordered={false}
+              dropdownMatchSelectWidth={false}
+              dropdownAlign={{
+                points: ["bl", "tl"],
+                offset: [0, 4],
+              }}
+              dropdownRender={(menu) => <div>{menu}</div>}
+            >
+              {languageOptions.map(({ value, label }) => (
+                <Option key={value} value={value}>
+                  <span role="img" aria-label={label}>
+                    {label}
+                  </span>
+                </Option>
+              ))}
+            </Select>
+          </div>
         </div>
-        <div className="popup">wdrw</div>
       </div>
     </Suspense>
   );
