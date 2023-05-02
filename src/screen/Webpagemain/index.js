@@ -4,20 +4,20 @@ import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Toast } from "antd-mobile";
-
+import { useDispatch, useSelector } from "react-redux";
 import { Components } from "../../components";
 import { Containers } from "../../containers";
 import "./Webpagemain.css";
-
+import { signInRequire2FA, selectUserLoggedIn } from "../../modules/";
 export const Webpagemain = () => {
   const { t } = useTranslation();
-  const [Login, setLogin] = useState(true);
-  const [activeTab, setActiveTab] = useState("1");
+  ///const [Login, setLogin] = useState(true);
 
+  const Login = useSelector(selectUserLoggedIn);
   const [marketData, setMarketData] = useState([]);
 
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
   useEffect(() => {
     const fetchMarketData = async () => {
       try {
@@ -33,7 +33,13 @@ export const Webpagemain = () => {
     fetchMarketData();
   }, []);
 
-  const topPrice = Math.max(...marketData.map((obj) => obj.Price));
+  dispatch(
+    signInRequire2FA({
+      require2fa: true,
+    })
+  );
+
+  //const topPrice = Math.max(...marketData.map((obj) => obj.Price));
 
   return (
     <>

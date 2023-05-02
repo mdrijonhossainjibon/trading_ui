@@ -6,6 +6,7 @@ export const AppRoute = () => {
     <>
       <Routes>
         <Route path="/" element={<WEBDESTOP.Webpagemain />} />
+        <Route path="/auth/login" element={<WEBDESTOP.LogInScreen />} />
       </Routes>
     </>
   );

@@ -2,32 +2,17 @@ import { useState, Suspense } from "react";
 import { useTranslation } from "react-i18next";
 import { Spin, Select } from "antd";
 import "./WEBHEADER.css";
-import {
-  DownloadOutlined,
-  GlobalOutlined,
-  DownOutlined,
-  SoundOutlined,
-} from "@ant-design/icons";
-import { QRCode, Space, Card } from "antd";
+import { selectUserLoggedIn } from "../../modules/";
+import { GlobalOutlined, DownOutlined } from "@ant-design/icons";
+import { QRCode, Space } from "antd";
 import { useNavigate } from "react-router-dom";
 import {
   DownlandOutline,
-  UserCircleOutline,
-  MessageOutline,
   RightOutline,
   BellOutline,
   UserOutline,
 } from "antd-mobile-icons";
-
-const BangladeshOutlined = () => {
-  return (
-    <svg viewBox="0 0 16 16">
-      <path fill="#006A4E" d="M0 0h16v16H0z" />
-      <path fill="#F42A41" d="M0 0h16v11H0z" />
-      <path fill="#FFD500" d="M0 0h16v5H0z" />
-    </svg>
-  );
-};
+import { useSelector } from "react-redux";
 
 const { Option } = Select;
 const languageOptions = [
@@ -35,17 +20,21 @@ const languageOptions = [
   { value: "bn", label: "বাংলা", flag: "BangladeshOutlined" },
   // Add more language options as needed
 ];
+
 export const WEBHEADER = () => {
-  const [isLogin, setLogin] = useState(true);
+  const isLogin = useSelector(selectUserLoggedIn);
+  //const [isLogin, setLogin] = useState(true);
   const [qrshow, setqr] = useState(false);
-  const [Language, setLanguage] = useState("en");
+  const [Language, setLanguage] = useState(
+    localStorage.getItem("i18nextLng") || "en"
+  );
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
   function handleLanguageChange(lang) {
     setLanguage(lang);
     i18n.changeLanguage(lang);
   }
-  console.log(localStorage.getItem(''))
+
   return (
     <Suspense
       children={
