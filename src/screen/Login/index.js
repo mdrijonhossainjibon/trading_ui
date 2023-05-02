@@ -275,7 +275,10 @@ export const LogInScreen = () => {
             </TabPane>
           </Tabs>
         </Card>
-        <div className="Spin-loading"><Spin /></div>
+        <div className="loading-container">
+          <div className="blur-background" />
+          <Spin size="large" />
+        </div>
       </div>
     </>
   );
