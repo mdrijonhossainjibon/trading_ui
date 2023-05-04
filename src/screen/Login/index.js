@@ -4,7 +4,17 @@ import { useState, useRef, useEffect } from "react";
 import { Components } from "../../components/";
 import { useTranslation } from "react-i18next";
 import { Suspense } from "react";
-import { Card, Tabs, Form, Input, Button, Checkbox, Popover, Spin } from "antd";
+import {
+  Card,
+  Tabs,
+  Form,
+  Input,
+  Button,
+  Checkbox,
+  Popover,
+  Toast,
+  Spin,
+} from "antd";
 import {
   UserOutlined,
   LockOutlined,
@@ -12,15 +22,15 @@ import {
   ShareAltOutlined,
 } from "@ant-design/icons";
 import { useLocation } from "react-router-dom";
-import { useDispatch,useSelector } from 'react-redux';
-import { signIn } from '../../modules';
+import { useDispatch, useSelector } from "react-redux";
+import { signIn } from "../../modules";
 import { Containers } from "../../containers";
 const { TabPane } = Tabs;
 
 export const LogInScreen = () => {
   const { t } = useTranslation();
   const location = useLocation();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const [activeTabKey, setActiveTabKey] = useState(
     location.pathname === "/auth/login" ? "1" : "2"
   );
@@ -29,6 +39,8 @@ export const LogInScreen = () => {
   );
   const [otp, setOTP] = useState(["", "", "", "", "", ""]);
   const [isVisible, setIsVisible] = useState(false);
+  const [LButtonLoding, setLButtonLoding] = useState(false);
+  const [Blur, setBlur] = useState(true);
 
   const handleTabChange = (key) => {
     setActiveTabKey(key);
@@ -40,13 +52,19 @@ export const LogInScreen = () => {
     }
   };
 
-  const onFinish = async(values) => {
-   if(values.username){
-    const data = await Containers.API()
-    console.log(data)
-   }else{
-     console.log(values)
-   }
+  const onFinish = async (values) => {
+    if (values.username) {
+      ///const data = await Containers.API()
+      const response = await fetch(
+        "https://raw.githubusercontent.com/mdrijonhossainjibon/trading_ui/main/public/data/user.json"
+      );
+
+      if (response.ok) {
+        setLButtonLoding(true);
+      }
+    } else {
+      console.log(values);
+    }
   };
 
   const inputRefs = useRef([]);
@@ -103,6 +121,10 @@ export const LogInScreen = () => {
     </div>
   );
 
+  setTimeout(() => {
+    setBlur(false);
+  }, 5000);
+
   return (
     <Suspense>
       <>
@@ -134,7 +156,7 @@ export const LogInScreen = () => {
                     rules={[
                       {
                         required: true,
-                        message: "Please input your Username!",
+                        message: t("Email_req"),
                       },
                     ]}
                   >
@@ -145,7 +167,7 @@ export const LogInScreen = () => {
                     rules={[
                       {
                         required: true,
-                        message: "Please input your Password!",
+                        message: t("password_req"),
                       },
                     ]}
                   >
@@ -157,11 +179,11 @@ export const LogInScreen = () => {
                   </Form.Item>
                   <Form.Item>
                     <Form.Item name="remember" valuePropName="checked" noStyle>
-                      <Checkbox>Remember me</Checkbox>
+                      <Checkbox>{t('Remember')}</Checkbox>
                     </Form.Item>
 
                     <a className="login-form-forgot" href="/">
-                      Forgot password
+                      {t('Forgot_password')}
                     </a>
                   </Form.Item>
 
@@ -172,8 +194,10 @@ export const LogInScreen = () => {
                       className="login-form-button"
                       style={{ marginLeft: "38%", width: 100 }}
                       color="black"
+                      loading={LButtonLoding}
+                      disabled={LButtonLoding}
                     >
-                      Log in
+                      {t('L')}
                     </Button>
                   </Form.Item>
                 </Form>
@@ -290,10 +314,14 @@ export const LogInScreen = () => {
               </TabPane>
             </Tabs>
           </Card>
-          <div className="loading-container">
+          <div
+            className={Blur ? "loading-container block" : "loading-container"}
+          >
             <div className="blur-background" />
-            <Spin size="large" />
+            <Spin size="large" className="spin-ssss" />
           </div>
+          
+          <Popover content={content} open={true}/>
         </div>
       </>
     </Suspense>

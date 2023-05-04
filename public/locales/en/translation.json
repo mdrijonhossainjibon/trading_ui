@@ -11,5 +11,9 @@
   "market": "MARKET",
   "details": "Details",
   "Blalance": "Blalance",
-  "Order" :  "Order"
+  "Order": "Order",
+  "Email_req": "Please input your Username!",
+  "password_req": "Please input your Password!",
+  "Remember": "Remember me",
+  "Forgot_password": "Forgot password"
 }

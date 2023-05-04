@@ -280,4 +280,11 @@ body {
   backdrop-filter: blur(5px);
   z-index: -1;
   
+}.block{
+  display : block
+}.spin-ssss{
+   position: absolute;
+   top : 50%;
+   left : 46%;
+   
 }
